@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Winks - La red social más fresca</title>
+
+    <!-- JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+
+    <!--
+        RTL version
+    -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css"/>
+    <link rel="stylesheet" href="css/themify-icons.css">
+    <link rel="stylesheet" href="css/feather.css">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/logos/logo.png">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-3.5.1.min.js"></script>
+
+
+</head>
+
+<body class="color-theme-blue">
+
+    <div class="preloader"></div>
+
+    <div class="main-wrap">
+
+        <div class="nav-header bg-transparent shadow-none border-0">
+            <div class="nav-top w-100">
+                <a href="default.php"><img src="images/logos/logo.png" style="max-width: 20%"></img><span class="d-inline-block fredoka-font ls-3 fw-600 text-current font-xxl logo-text mb-0">Winks </span> </a>
+                <a href="#" class="mob-menu ms-auto me-2 chat-active-btn"><i class="feather-message-circle text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="default-video.html" class="mob-menu me-2"><i class="feather-video text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <a href="#" class="me-2 menu-search-icon mob-menu"><i class="feather-search text-grey-900 font-sm btn-round-md bg-greylight"></i></a>
+                <button class="nav-menu me-0 ms-2"></button>
+
+                <a href="" class="header-btn d-none d-lg-block bg-dark fw-500 text-white font-xsss p-3 ms-auto w100 text-center lh-20 rounded-xl" data-toggle="modal" data-target="#Modallogin">Login</a>
+                <a href="register.html" class="header-btn d-none d-lg-block bg-current fw-500 text-white font-xsss p-3 ms-2 w100 text-center lh-20 rounded-xl" data-toggle="modal" data-target="#Modalregister">Registrate</a>
+
+            </div>
+            
+            
+        </div>
+
+        <div class="row">
+            <div class="col-xl-5 d-none d-xl-block p-0 vh-100 bg-image-cover bg-no-repeat" style="background-image: url(images/login.jpg);"></div>
+            <div class="col-xl-7 vh-100 align-items-center d-flex bg-white rounded-3 overflow-hidden">
+                <div class="card shadow-none border-0 ms-auto me-auto login-card">
+                    <div class="card-body rounded-0 text-left">
+                        <h2 class="fw-700 display1-size display2-md-size mb-3">Inicia sesión <br>en tu cuenta</h2>
+                        <form>
+                            <div>
+                                <h5  id="errorLogin" style="color: red;" hidden>Credenciales incorrectas </h5>
+                            </div>
+
+                            <div class="form-group icon-input mb-3">
+                                <i class="font-sm ti-email text-grey-500 pe-0"></i>
+                                <input type="text" class="style2-input ps-5 form-control text-grey-900 font-xsss fw-600" id="credential_login" placeholder="Correo electrónico">
+                            </div>
+                            <div class="form-group icon-input mb-1">
+                                <input type="Password" class="style2-input ps-5 form-control text-grey-900 font-xss ls-3"  id= "credential_login_pswd" placeholder="Password">
+                                <i class="font-sm ti-lock text-grey-500 pe-0"></i>
+                            </div>
+                            <br>
+                        </form>
+                         
+                        <div class="col-sm-12 p-0 text-left" id="loginButton">
+                            <div class="form-group mb-1"><button onclick="checkCredentials()" class="form-control text-center style2-input text-white fw-600 bg-dark border-0 p-0 ">Iniciar sesión</button></div>
+                        </div>
+
+                        <script type="application/javascript">
+                            function checkCredentials(){
+                                var user_username = document.getElementById("credential_login").value;
+                                var user_password = document.getElementById("credential_login_pswd").value;
+                                if (user_username && user_password) {
+                                    $.ajax({
+                                        type: "POST", // la variable type guarda el tipo de la peticion GET,POST,..
+                                        url: "credentials/check.php", //url guarda la ruta hacia donde se hace la peticion
+                                        data: {username: user_username, password: user_password}, // data recive un objeto con la informacion que se enviara al servidor
+                                        success: function (resolve) { //success es una funcion que se utiliza si el servidor retorna informacion
+                                            if (resolve === "baja"){
+                                                alertify.error("Cuenta suspendida");
+                                            }else{
+                                                if(resolve === "true"){
+                                                    window.location.replace("default.php");
+                                                }else{
+                                                    document.getElementById("errorLogin").removeAttribute("hidden");
+                                                }
+                                            }
+                                        },
+                                        error: function (resolve){
+                                            document.getElementById("errorLogin").removeAttribute("hidden");
+                                        }
+                                    })
+                                }else {
+                                    document.getElementById("errorLogin").removeAttribute("hidden");
+                                }
+
+                            }
+                        </script>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <script src="js/plugin.js"></script>
+    <script src="js/scripts.js"></script>
+    
+</body>
+
+</html>
