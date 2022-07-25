@@ -1,7 +1,7 @@
 # Winks
 ## Social network (PHP-Javascript-HTML-Bootstrap)
 
-Winks is a Social network based on Linkedin where users can upload images, text, and make friends, furthermore, professional information can be stablished
+Winks is a Social network based on Linkedin style, where users can upload images, text, and add friends, furthermore, professional information can be stablished
 
 ## Features
 
